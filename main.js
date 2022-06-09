@@ -2,14 +2,36 @@ var $car = document.querySelector('.car');
 
 window.addEventListener('keydown', changeDirection);
 
+const faceUp = [
+  { transform: 'rotate(-90deg)' }
+];
+
+const faceDown = [
+  { transform: 'rotate(90deg)' }
+];
+
+const faceLeft = [
+  { transform: 'rotate(180deg)' }
+];
+
+const faceRight = [
+  { transform: 'rotate(0deg)' }
+];
+
+const turnSettings = {
+  duration: 150,
+  iteration: 1,
+  fill: 'forwards'
+};
+
 function changeDirection(event) {
   if (event.key === 'ArrowUp') {
-    $car.className = 'car up';
+    $car.animate(faceUp, turnSettings);
   } else if (event.key === 'ArrowDown') {
-    $car.className = 'car down';
+    $car.animate(faceDown, turnSettings);
   } else if (event.key === 'ArrowLeft') {
-    $car.className = 'car left';
+    $car.animate(faceLeft, turnSettings);
   } else if (event.key === 'ArrowRight') {
-    $car.className = 'car';
+    $car.animate(faceRight, turnSettings);
   }
 }
