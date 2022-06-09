@@ -13,3 +13,15 @@
   width: 100px;
   height: auto;
 }
+
+.up {
+  transform: rotate(270deg);
+}
+
+.down {
+  transform: rotate(90deg);
+}
+
+.left {
+  transform: rotate(180deg);
+}
