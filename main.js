@@ -1,5 +1,10 @@
 var $car = document.querySelector('.car');
 
+var data = {
+  direction: null,
+  location: []
+};
+
 window.addEventListener('keydown', changeDirection);
 
 const faceUp = [
@@ -27,11 +32,15 @@ const turnSettings = {
 function changeDirection(event) {
   if (event.key === 'ArrowUp') {
     $car.animate(faceUp, turnSettings);
+    data.direction = 'up';
   } else if (event.key === 'ArrowDown') {
     $car.animate(faceDown, turnSettings);
+    data.direction = 'down';
   } else if (event.key === 'ArrowLeft') {
     $car.animate(faceLeft, turnSettings);
+    data.direction = 'left';
   } else if (event.key === 'ArrowRight') {
     $car.animate(faceRight, turnSettings);
+    data.direction = 'right';
   }
 }

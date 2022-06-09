@@ -10,6 +10,7 @@
 }
 
 .car {
+  position: absolute;
   width: 100px;
   height: auto;
 }
