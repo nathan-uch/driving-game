@@ -1,11 +1,12 @@
 var $car = document.querySelector('.car');
 
+window.addEventListener('keydown', changeDirection);
+window.addEventListener('keydown', startCar);
+
 var data = {
   direction: null,
   location: []
 };
-
-window.addEventListener('keydown', changeDirection);
 
 const faceUp = [
   { transform: 'rotate(-90deg)' }
@@ -43,4 +44,12 @@ function changeDirection(event) {
     $car.animate(faceRight, turnSettings);
     data.direction = 'right';
   }
+}
+
+function startCar() {
+  var i = 0;
+  setInterval(function () {
+    i++;
+    $car.style.left = i + 'px';
+  }, 16);
 }
