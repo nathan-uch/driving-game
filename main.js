@@ -46,10 +46,11 @@ function changeDirection(event) {
   }
 }
 
+setInterval(startCar, 16);
+var x = 0;
+
 function startCar() {
-  var i = 0;
-  setInterval(function () {
-    i++;
-    $car.style.left = i + 'px';
-  }, 16);
+  x++;
+  $car.style.left = x + 'px';
+  data.location[0] = x;
 }
