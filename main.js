@@ -1,3 +1,4 @@
+var $pageContainer = document.querySelector('.container');
 var $car = document.querySelector('.car');
 
 window.addEventListener('keydown', changeDirection);
@@ -5,8 +6,10 @@ window.addEventListener('keydown', startCar);
 
 var data = {
   direction: null,
-  location: []
+  location: [0, 0]
 };
+
+var fullWidth = $pageContainer.offsetWidth;
 
 const faceUp = [
   { transform: 'rotate(-90deg)' }
@@ -46,11 +49,19 @@ function changeDirection(event) {
   }
 }
 
-setInterval(startCar, 16);
-var x = 0;
+var moveIntervalId = setInterval(startCar, 5);
+var xAxis = null;
 
 function startCar() {
-  x++;
-  $car.style.left = x + 'px';
-  data.location[0] = x;
+  xAxis = data.location[0];
+  if (xAxis >= fullWidth - 101) {
+    xAxis = fullWidth - 101;
+    $car.style.left = xAxis + 'px';
+    data.location[0] = xAxis;
+    clearInterval(moveIntervalId);
+  } else if (xAxis < fullWidth) {
+    xAxis++;
+    $car.style.left = xAxis + 'px';
+    data.location[0] = xAxis;
+  }
 }
