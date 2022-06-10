@@ -1,4 +1,3 @@
-var $pageContainer = document.querySelector('.container');
 var $car = document.querySelector('.car');
 
 window.addEventListener('keydown', changeDirection);
@@ -10,7 +9,7 @@ var data = {
   driving: false
 };
 
-var fullWidth = $pageContainer.offsetWidth;
+var moveIntervalId = null;
 var xAxis = null;
 
 const faceUp = [
@@ -53,25 +52,20 @@ function changeDirection(event) {
 
 function startOrStopCar(event) {
   if (event.code === 'Space' && data.driving === false) {
-    var moveIntervalId = setInterval(moveCar, 5);
+    moveIntervalId = setInterval(moveCar, 5);
     data.driving = true;
     moveCar(moveIntervalId);
   } else if (event.code === 'Space' && data.driving === true) {
-
+    clearInterval(moveIntervalId);
+    data.location[0] = xAxis;
     data.driving = false;
   }
 }
 
 function moveCar(intervalId) {
   xAxis = data.location[0];
-  if (xAxis >= fullWidth - 101) {
-    xAxis = fullWidth - 101;
-    $car.style.left = xAxis + 'px';
-    data.location[0] = xAxis;
-    clearInterval(intervalId);
-  } else if (xAxis < fullWidth) {
-    xAxis++;
-    $car.style.left = xAxis + 'px';
-    data.location[0] = xAxis;
-  }
+  xAxis++;
+  $car.style.left = xAxis + 'px';
+  data.location[0] = xAxis;
+
 }
