@@ -1,15 +1,15 @@
-var $pageContainer = document.querySelector('.container');
 var $car = document.querySelector('.car');
 
 window.addEventListener('keydown', changeDirection);
-window.addEventListener('keydown', startCar);
+window.addEventListener('keydown', startOrStopCar);
 
 var data = {
   direction: null,
-  location: [0, 0]
+  location: [0, 0],
+  driving: false
 };
 
-var fullWidth = $pageContainer.offsetWidth;
+var moveIntervalId = null;
 var xAxis = null;
 
 const faceUp = [
@@ -50,23 +50,22 @@ function changeDirection(event) {
   }
 }
 
-function startCar(event) {
-  if (event.code === 'Space') {
-    var moveIntervalId = setInterval(moveCar, 5);
+function startOrStopCar(event) {
+  if (event.code === 'Space' && data.driving === false) {
+    moveIntervalId = setInterval(moveCar, 5);
+    data.driving = true;
     moveCar(moveIntervalId);
+  } else if (event.code === 'Space' && data.driving === true) {
+    clearInterval(moveIntervalId);
+    data.location[0] = xAxis;
+    data.driving = false;
   }
 }
 
-function moveCar(intervalID) {
+function moveCar(intervalId) {
   xAxis = data.location[0];
-  if (xAxis >= fullWidth - 101) {
-    xAxis = fullWidth - 101;
-    $car.style.left = xAxis + 'px';
-    data.location[0] = xAxis;
-    clearInterval(intervalID);
-  } else if (xAxis < fullWidth) {
-    xAxis++;
-    $car.style.left = xAxis + 'px';
-    data.location[0] = xAxis;
-  }
+  xAxis++;
+  $car.style.left = xAxis + 'px';
+  data.location[0] = xAxis;
+
 }
