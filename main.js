@@ -69,7 +69,6 @@ function startOrStopCar(event) {
 function moveCar(intervalId) {
   xAxis = data.location[0];
   yAxis = data.location[1];
-
   if (xAxis >= fullWidth - 101 && data.direction === 'right') {
     xAxis = fullWidth - 101;
     $car.style.left = xAxis + 'px';
