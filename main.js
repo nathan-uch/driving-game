@@ -2,11 +2,12 @@ var $pageContainer = document.querySelector('.container');
 var $car = document.querySelector('.car');
 
 window.addEventListener('keydown', changeDirection);
-window.addEventListener('keydown', startCar);
+window.addEventListener('keydown', startOrStopCar);
 
 var data = {
   direction: null,
-  location: [0, 0]
+  location: [0, 0],
+  driving: false
 };
 
 var fullWidth = $pageContainer.offsetWidth;
@@ -50,20 +51,24 @@ function changeDirection(event) {
   }
 }
 
-function startCar(event) {
-  if (event.code === 'Space') {
+function startOrStopCar(event) {
+  if (event.code === 'Space' && data.driving === false) {
     var moveIntervalId = setInterval(moveCar, 5);
+    data.driving = true;
     moveCar(moveIntervalId);
+  } else if (event.code === 'Space' && data.driving === true) {
+
+    data.driving = false;
   }
 }
 
-function moveCar(intervalID) {
+function moveCar(intervalId) {
   xAxis = data.location[0];
   if (xAxis >= fullWidth - 101) {
     xAxis = fullWidth - 101;
     $car.style.left = xAxis + 'px';
     data.location[0] = xAxis;
-    clearInterval(intervalID);
+    clearInterval(intervalId);
   } else if (xAxis < fullWidth) {
     xAxis++;
     $car.style.left = xAxis + 'px';
